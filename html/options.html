@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .tab {
+            background-color: rgb(233,233,233);
+            border-top: 1px solid rgb(155,155,155);
+            border-bottom: 1px solid rgb(155,155,155);
+            margin: 0;
+            padding: 0;
+        }
+        .tab:hover {
+            cursor: pointer;
+            background-color: rgb(244,244,244);
+            border-top: 1px solid rgb(177,177,177);
+            border-bottom: 1px solid rgb(177,177,177);
+            color: rgb(10,10,10);
+        }
+        .textbox_rgb {
+            width: 40px;
+        }
+        span {
+            font-size: 1.1em;
+        }
+        .switch_title {
+            position: relative;
+            top: 4px;
+        }
+        .switch_subtitle {
+            font-size: 11px;
+            margin-left: 5px;
+            user-select: none;
+        }
+        #flex_container {
+            display: flex;
+            height: 100%;
+        }
+        #flex_main {
+            flex-grow: 8;
+        }
+        #flex_sidebar {
+            flex-grow: 0;
+            border-right: 1px solid black;
+            background-image: linear-gradient(rgb(220,220,220), rgb(250,250,250));
+        }
+        #flex_sidebar > div {
+            font-size: 20px;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+        #flex_sidebar > span {
+            display: block;
+            text-align: center;
+            margin: 5px;
+        }
+        #flex_sidebar a:visited {
+            color: black;
+        }
+        #flex_sidebar a:active {
+            color: rgb(75,75,75);
+        }
+        #flex_sidebar a:hover {
+            background-color: white;
+        }
+        #flex_sidebar div {
+            background-color: rgb(60,60,60);
+            color: white;
+        }
+        #flex_main {
+            margin: 0;
+            padding: 0;
+        }
+        #flex_main > div {
+            margin: 0;
+            
+        }
+        .header {
+            width: 100%;
+            padding: 4px;
+            margin: 0 0 4px 0;
+            font-size: 1.5em;
+            background-image: linear-gradient(to right, rgb(230,230,230), white);
+        }
+        .submit_btn, #color_submit_error, #color_submit_success, #submit_advanced_settings_success {
+            margin-left: 5px;
+        }
+        .submit_container {
+            padding: 5px 0 5px 0;
+        }
+        .check {
+            position: relative;
+            top: 3px;
+        }
+        .container {
+            margin: 2px;
+        }
+        #color_submit_error {
+            display: none;
+            color: red;
+            user-select: none;
+        }
+        #color_submit_success, #submit_advanced_settings_success {
+            display: none;
+            color: green;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="flex_container">
+        <div id="flex_sidebar">
+            <div>Hidden Input Revealer</div>
+            <span>Settings</span>
+        </div>
+        <div id="flex_main">
+            <div id="advanced_settings_container">
+                <form>
+                    <div class="header">Advanced Settings</div>
+                    <span id="disable_info_subtitle" class="switch_subtitle">Disable on hover window: </span>
+                    <input id="disable_info_window" type="checkbox" class="check"><br>
+                    <span id="dynamic_parse_subtitle" class="switch_subtitle">Disable finding dynamically added inputs <i>after <u>Automatic Reveal</u></i> (No MutationObserver): </span>
+                    <input id="dynamic_parse" type="checkbox" class="check"><br>
+                    <span id="manual_dynamic_parse_subtitle" class="switch_subtitle">Enable finding dynamically added inputs <i>after a <u>Manual Reveal</u></i> (MutationObserver): </span>
+                    <input id="manual_dynamic_parse" type="checkbox" class="check"><br>
+                    <div id="submit_advanced_settings_success">Saved settings</div>
+                    <div class="submit_container"><input id="submit_advanced_settings" type="button" value="Save settings" class="submit_btn"></div>
+                </form>
+            </div>
+            
+            <div id="color_settings_container">
+                <div class="header">Color Settings</div>            
+                <form>
+                    <table>
+                        <tr>
+                            <td id="highlight_color_subtitle" class="switch_subtitle">Highlight Color:</td>
+                            <td>
+                                <span id="highlight_color_subtitle" class="switch_subtitle">R:</span>
+                                <input id="highlight_color_r" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="highlight_color_subtitle" class="switch_subtitle">G:</span>
+                                <input id="highlight_color_g" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="highlight_color_subtitle" class="switch_subtitle">B:</span>
+                                <input id="highlight_color_b" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="highlight_color_subtitle" class="switch_subtitle">A:</span>
+                                <input id="highlight_color_a" class="textbox_rgb" type="number" min="0" max="1" step="0.01">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="info_window_color" class="switch_subtitle">Popup Info Window Color:</td>
+                            <td>
+                                <span id="info_window_color_subtitle" class="switch_subtitle">R:</span>
+                                <input id="info_window_color_r" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="info_window_color_subtitle" class="switch_subtitle">G:</span>
+                                <input id="info_window_color_g" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="info_window_color_subtitle" class="switch_subtitle">B:</span>
+                                <input id="info_window_color_b" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="info_window_color_subtitle" class="switch_subtitle">A:</span>
+                                <input id="info_window_color_a" class="textbox_rgb" type="number" min="0" max="1" step="0.01">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="info_window_font_color" class="switch_subtitle">Popup Info Window Font Color:</td>
+                            <td>
+                                <span id="info_window_font_color_subtitle" class="switch_subtitle">R:</span>
+                                <input id="info_window_font_color_r" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="info_window_font_color_subtitle" class="switch_subtitle">G:</span>
+                                <input id="info_window_font_color_g" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="info_window_font_color_subtitle" class="switch_subtitle">B:</span>
+                                <input id="info_window_font_color_b" class="textbox_rgb" type="number" min="0" max="255">
+                                <span id="info_window_font_color_subtitle" class="switch_subtitle">A:</span>
+                                <input id="info_window_font_color_a" class="textbox_rgb" type="number" min="0" max="1" step="0.01">
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="color_submit_error">Invalid color value(s)</div>
+                    <div id="color_submit_success">Saved color values</div>
+                    <div class="submit_container"><input id="submit_color" type="button" value="Save colors" class="submit_btn"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/options.js"></script>
+</body>
+</html>

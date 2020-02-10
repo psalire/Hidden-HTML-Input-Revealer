@@ -1,0 +1,21 @@
+{
+    "name": "Hidden HTML Input Revealer",
+    "short_name":  "Hidden Input Revealer",
+    "version": "1.0",
+    "description": "Hidden HTML Input Revealer",
+    "manifest_version": 2,
+    "permissions": ["tabs", "storage", "<all_urls>"],
+    "background": {
+        "scripts": ["background.js", "scripts/codes.js", "scripts/uuid.js"],
+        "persistent": false
+    },
+    "options_page": "html/options.html",
+    "browser_action": {
+        "default_title": "Hidden Form Viewer",
+        "default_popup": "html/popup.html"
+    },
+    "icons": {
+        "48": "logo/logo_48.png",
+        "128": "logo/logo_128.png"
+    }
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html, body {
+            min-width: 200px;
+            padding: 5px 0 5px 0;
+            margin: 0;
+            user-select: none;
+            background-color: rgba(255,255,255,0.9);
+        }
+        /* https://www.w3schools.com/howto/howto_css_switch.asp
+           The switch - the box around the slider */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 38px;
+            height: 25px;
+        }
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .3s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 19px;
+            width: 19px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(13px);
+        }
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        .container {
+            width: 100%;
+            text-align: center;
+        }
+        #onoff_container {
+            margin-bottom: 5px;
+        }
+        #options_container {
+            padding: 5px 0 0 0;
+        }
+        .switch_title {
+            position: relative;
+            top: 4px;
+        }
+        .switch_subtitle {
+            font-size: 11px;
+        }
+        span {
+            font-size: 1.1em;
+        }
+        #refresh_info {
+            display: none;
+            margin-top: 5px;
+        }
+        #onoff_text {
+            position: relative;
+            top: 2px;
+            font-size: 10px;
+            z-index: 100;
+            color: rgba(0,0,0,0.75);
+        }
+        .btn {
+            position: relative;
+            top: 3px;
+            border: 0;
+            border-radius: 15px;
+            box-shadow: 0 0 2px black;
+            width: 40px;
+            height: 25px;
+            color: rgba(0,0,0,0.75);
+        }
+        .btn:hover {
+            cursor: pointer;
+            color: rgba(50,50,50,0.75);
+        }
+        .btn:focus {
+            outline: 0;
+        }
+        .btn:active {
+            background-color: white;
+        }
+        h3 {
+            margin: 0;
+            padding: 3px 0 3px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h3>Hidden Input Revealer</h3>
+    <div id="main_container" class="container">
+        <div id="onoff_container" class="container">
+            <span class="switch_title">Automatic Reveal: </span>
+            <label class="switch">
+                <input id="on_switch" type="checkbox">
+                <span class="slider round"><span id="onoff_text">ON</span></span>
+            </label>
+        </div>
+        <span class="switch_title">Manual Reveal: </span>
+        <input id="manual_button" type="button" value="Click" class="btn"><br>
+    </div>
+    <div id="refresh_info" class="container"><i><a href="#" id="refresh_link">Refresh</a> page to take effect.</i></div>
+    <div id="options_container" class="container"><a href="#" id="options_link">Options</a></div>
+    <script src="../scripts/popup.js"></script>
+</body>
+</html>
