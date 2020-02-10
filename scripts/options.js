@@ -31,8 +31,14 @@ function fill_initial_color_values(id_name, obj, defaults) {
 
 window.onload = function() {
     /* Fill form with current values */
-    chrome.storage.sync.get(['highlight_color', 'info_window_color', 'info_window_font_color',
-                             'disable_hover_window', 'disable_mutation_observer'], function(res) {
+    chrome.storage.sync.get([
+        'highlight_color',
+        'info_window_color',
+        'info_window_font_color',
+        'disable_hover_window',
+        'disable_automatic_mutation_observer',
+        'enable_manual_mutation_observer'
+    ], function(res) {
         var highlight_color_obj = get_color_values_from_string(res.highlight_color),
             info_window_color_obj = get_color_values_from_string(res.info_window_color),
             info_window_font_color_obj = get_color_values_from_string(res.info_window_font_color);
@@ -42,8 +48,11 @@ window.onload = function() {
         if (res.disable_hover_window) {
             document.getElementById('disable_info_window').click();
         }
-        if (res.disable_mutation_observer) {
+        if (res.disable_automatic_mutation_observer) {
             document.getElementById('dynamic_parse').click();
+        }
+        if (res.enable_manual_mutation_observer) {
+            document.getElementById('manual_dynamic_parse').click();
         }
     });
 

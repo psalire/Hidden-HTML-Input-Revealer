@@ -38,14 +38,24 @@ function reveal_hidden_inputs(codes, tab_id) {
     /* If tab has injected scripts, call reveal function */
     let ftn_find_hidden_uuid;
     if ((ftn_find_hidden_uuid = ACTIVE_TABS.get(tab_id))) {
-        chrome.tabs.executeScript(tab_id, {code: `${ftn_find_hidden_uuid}();}`});
+        try {
+            chrome.tabs.executeScript(tab_id, {code: `${ftn_find_hidden_uuid}();}`});
+        }
+        catch(e) {
+            console.log(e);
+        }
     }
     /* If not yet injected, inject reveal scripts and save reveal function to map */
     else {
-        chrome.tabs.insertCSS(tab_id, {code: codes.input_css}, function() {
-            chrome.tabs.executeScript(tab_id, {code: codes.show_hidden_inputs_js});
-        });
-        ACTIVE_TABS.set(tab_id, codes['ftn_find_hidden_uuid']);
+        try {
+            chrome.tabs.insertCSS(tab_id, {code: codes.input_css}, function() {
+                chrome.tabs.executeScript(tab_id, {code: codes.show_hidden_inputs_js});
+            });
+            ACTIVE_TABS.set(tab_id, codes['ftn_find_hidden_uuid']);
+        }
+        catch(e) {
+            console.log(e);
+        }
     }
 }
 

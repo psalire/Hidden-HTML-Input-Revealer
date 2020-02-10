@@ -1,7 +1,7 @@
 {
     "name": "Hidden HTML Input Revealer",
     "short_name":  "Hidden Input Revealer",
-    "version": "1.0",
+    "version": "1.0.1",
     "description": "Hidden HTML Input Revealer",
     "manifest_version": 2,
     "permissions": ["tabs", "storage", "<all_urls>"],
